@@ -30,7 +30,7 @@ export default {
         // 多久滚动一次
         interval: {
             type: Number,
-            default: 1000
+            default: 4000
         }
     },
     data() {
@@ -80,7 +80,7 @@ export default {
             // 多少个元素
             this.children = this.$refs.sliderGroup.children
 
-            console.log(this.children.length)
+            // console.log(this.children.length)
 
             let width = 0
             // 父容器的宽度
