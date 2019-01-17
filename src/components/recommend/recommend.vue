@@ -1,42 +1,73 @@
 <template>
     <div class="recommend">
-        <div class="recommend-content">
-            <div
-                class="slider-wrapper"
-                v-if="recommends.length"
-                ref="sliderWrapper"
-            >
-                <slider>
-                    <div v-for="(item, index) in recommends" :key="index">
-                        <a :href="item.linkUrl">
-                            <img :src="item.picUrl" alt="" />
-                        </a>
-                    </div>
-                </slider>
+        <scroll class="recommend-content" :data="discList" ref="scroll">
+            <!-- start better-scroll -->
+            <div>
+                <div
+                    class="slider-wrapper"
+                    v-if="recommends.length"
+                    ref="sliderWrapper"
+                >
+                    <slider>
+                        <div v-for="(item, index) in recommends" :key="index">
+                            <a :href="item.linkUrl">
+                                <img :src="item.picUrl" @load="loadImage" />
+                            </a>
+                        </div>
+                    </slider>
+                </div>
+                <div class="recommend-list">
+                    <h1 class="list-title">热门歌单推荐</h1>
+                    <ul>
+                        <li
+                            v-for="(item, index) in discList"
+                            :key="index"
+                            class="item"
+                        >
+                            <div class="icon">
+                                <img
+                                    :src="item.imgurl"
+                                    width="60"
+                                    height="60"
+                                />
+                            </div>
+                            <div class="text">
+                                <h2
+                                    class="name"
+                                    v-html="item.creator.name"
+                                ></h2>
+                                <p class="desc" v-html="item.dissname"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="recommend-list">
-                <h1 class="list-title">热门歌单推荐</h1>
-                <ul></ul>
-            </div>
-        </div>
+            <!-- end better-wrapper -->
+        </scroll>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
 import Slider from 'base/slider/slider'
+import Scroll from 'base/scroll/scroll'
 import { getRecommend, getDiscList } from 'api/recommend'
 import { ERR_OK } from 'api/config'
 
 export default {
     data() {
         return {
-            recommends: []
+            recommends: [],
+            discList: []
         }
     },
     components: {
-        Slider
+        Slider,
+        Scroll
     },
     created() {
+        // setTimeout(()=>{
+        //     this._getRecommend()
+        // },1000)
         this._getRecommend()
         this._getDiscList()
     },
@@ -56,6 +87,12 @@ export default {
                     this.discList = res.data.list
                 }
             })
+        },
+        loadImage() {
+            if (!this.checkloaded) {
+                this.checkloaded = true
+                this.$refs.scroll.refresh()
+            }
         }
     }
 }
