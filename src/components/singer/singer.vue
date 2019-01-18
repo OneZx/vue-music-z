@@ -14,14 +14,14 @@ import ListView from 'base/listview/listview'
 import { getSingerList } from 'api/singer'
 import { ERR_OK } from 'api/config'
 import Singer from 'common/js/singer'
-import { mapMutations } from 'vuex'
-import { playlistMixin } from 'common/js/mixin'
+// import { mapMutations } from 'vuex'
+// import { playlistMixin } from 'common/js/mixin'
 
 const HOT_SINGER_LEN = 10 // 定义前十条为热门
 const HOT_NAME = '热门'
 
 export default {
-    mixins: [playlistMixin],
+    // mixins: [playlistMixin],
     components: {
         ListView
     },
@@ -102,10 +102,10 @@ export default {
                 return a.title.charCodeAt(0) - b.title.charCodeAt(0)
             })
             return hot.concat(ret)
-        },
-        ...mapMutations({
-            setSinger: 'SET_SINGER'
-        })
+        }
+        // ...mapMutations({
+        //     setSinger: 'SET_SINGER'
+        // })
     }
 }
 </script>

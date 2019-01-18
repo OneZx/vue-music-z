@@ -47,6 +47,7 @@
                 </li>
             </ul>
         </div>
+        <!-- 固定标题 -->
         <div class="list-fixed" ref="fixed" v-show="fixedTitle">
             <div class="fixed-title">{{ fixedTitle }}</div>
         </div>
@@ -61,6 +62,7 @@ import Scroll from 'base/scroll/scroll'
 import Loading from 'base/loading/loading'
 import { getData } from 'common/js/dom'
 
+// 标题高度
 const TITLE_HEIGHT = 30
 // 每个右侧字母锚点的高度
 const ANCHOR_HEIGHT = 18
@@ -71,6 +73,7 @@ export default {
             scrollY: -1,
             // 当前应该显示第几个,对应右侧哪个高亮
             currentIndex: 0,
+            //  标题头的偏移
             diff: -1
         }
     },
@@ -101,7 +104,9 @@ export default {
                 return group.title.substr(0, 1)
             })
         },
+        // 计算属性
         fixedTitle() {
+            // 到顶后向下拖动时,边界条件判断
             if (this.scrollY > 0) {
                 return ''
             }
@@ -194,6 +199,7 @@ export default {
                 // 如果落在了height1和height2的区间内 这里注意是>=
                 if (-newY >= height1 && -newY < height2) {
                     this.currentIndex = i
+                    // 标题头的偏差
                     this.diff = height2 + newY
                     return
                 }
@@ -208,6 +214,7 @@ export default {
                 return
             }
             this.fixedTop = fixedTop
+            // 添加偏移效果
             this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`
         }
     }
