@@ -11,7 +11,12 @@
                     <slider>
                         <div v-for="(item, index) in recommends" :key="index">
                             <a :href="item.linkUrl">
-                                <img :src="item.picUrl" @load="loadImage" />
+                                <img
+                                    :src="item.picUrl"
+                                    @load="loadImage"
+                                    class="needsclick"
+                                />
+                                <!-- fastclick 的css属性 -->
                             </a>
                         </div>
                     </slider>
@@ -26,7 +31,7 @@
                         >
                             <div class="icon">
                                 <img
-                                    :src="item.imgurl"
+                                    v-lazy="item.imgurl"
                                     width="60"
                                     height="60"
                                 />
@@ -43,6 +48,9 @@
                 </div>
             </div>
             <!-- end better-wrapper -->
+            <div class="loading-container" v-show="!discList.length">
+                <loading></loading>
+            </div>
         </scroll>
     </div>
 </template>
@@ -50,6 +58,7 @@
 <script type="text/ecmascript-6">
 import Slider from 'base/slider/slider'
 import Scroll from 'base/scroll/scroll'
+import Loading from 'base/loading/loading'
 import { getRecommend, getDiscList } from 'api/recommend'
 import { ERR_OK } from 'api/config'
 
@@ -62,7 +71,8 @@ export default {
     },
     components: {
         Slider,
-        Scroll
+        Scroll,
+        Loading
     },
     created() {
         // setTimeout(()=>{
