@@ -5,6 +5,7 @@
             :data="singers"
             ref="list"
         ></list-view>
+        <!-- 挂载子路由 -->
         <router-view></router-view>
     </div>
 </template>
