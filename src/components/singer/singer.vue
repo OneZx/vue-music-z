@@ -5,7 +5,6 @@
             :data="singers"
             ref="list"
         ></list-view>
-        <!-- 挂载子路由 -->
         <router-view></router-view>
     </div>
 </template>
@@ -42,10 +41,13 @@ export default {
             this.$refs.list.refresh()
         },
         selectSinger(singer) {
+            // 路由跳转到歌手页
             this.$router.push({
+                // /起头为跟路径,不要/就是在上一个路由后拼接
                 path: `/singer/${singer.id}`
             })
-            this.setSinger(singer)
+            // this.setSinger(singer)
+            // console.log(singer)
         },
         _getSingerList() {
             getSingerList().then(res => {

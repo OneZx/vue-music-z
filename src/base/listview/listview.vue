@@ -118,7 +118,9 @@ export default {
 
     methods: {
         // 建议公共方法或者绑定事件的方法上面,私有方法下面
+        // 点击事件,跳转路由
         selectItem(item) {
+            // 派发一个select事件, 然后在父级绑定select事件
             this.$emit('select', item)
         },
         onShortcutTouchStart(e) {
